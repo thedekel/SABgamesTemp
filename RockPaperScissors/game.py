@@ -9,8 +9,6 @@ queue = ""
 curr_msg = ""
 reading = False
 		
-s.send("ping")
-
 while 1:
 	try:
 		temp = s.recv(1)
@@ -20,14 +18,20 @@ while 1:
 		elif temp == "&":
 			reading = False
 			curr_msg = queue[:]
-			print curr_msg	
 		elif reading:
 			queue += temp
 	except:
 		pass	
-	if state == "0":
+	if state == 0:
 		break
-	state = raw_input("Yes? ")
+	elif state == 1:
+		idnum = 0000 # gotten from ui
+		try:
+			s.send("login," + str(idnum))
+		except:
+			pass
+		
+
 
 	
 s.shutdown(socket.SHUT_RDWR)
